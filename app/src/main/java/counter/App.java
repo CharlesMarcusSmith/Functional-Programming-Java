@@ -9,8 +9,7 @@ import counter.items.Cart;
 import counter.items.Colour;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class App {
     public static void main(String[] argv) {
@@ -34,7 +33,8 @@ public class App {
         cart.add(boxOfApples);
 
         System.out.println("Lambda Exercise Output:");
-        // Add your lambda exercises here
+        Collections.sort(someApples, (a1, a2) -> Long.compare(a1.bestBefore().getLong(), a2.bestBefore().getLong()));
+
 
         System.out.println("Streams Exercises Output:");
         // Add your stream exercises here
