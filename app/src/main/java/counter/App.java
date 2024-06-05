@@ -3,12 +3,11 @@
  */
 package counter;
 
-import counter.items.Apple;
-import counter.items.Box;
-import counter.items.Cart;
-import counter.items.Colour;
+import counter.items.*;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 public class App {
@@ -33,7 +32,33 @@ public class App {
         cart.add(boxOfApples);
 
         System.out.println("Lambda Exercise Output:");
-        Collections.sort(someApples, (a1, a2) -> Long.compare(a1.bestBefore().getLong(), a2.bestBefore().getLong()));
+        // Sorting exercise:
+
+        // Use overridden class:
+        Collections.sort(someApples, new bestBeforeComparator());
+
+        // Use inline anonymous class:
+        Collections.sort(someApples, new Comparator<Apple>() {
+            @Override
+            public int compare(Apple a1, Apple a2) {
+                return a1.bestBefore().compareTo(a2.bestBefore());
+            }
+        });
+
+        // Use Lambda:
+        Collections.sort(someApples, (a1, a2) -> a1.bestBefore().compareTo(a2.bestBefore()));
+        // Recommended syntax improvement:
+        Collections.sort(someApples, Comparator.comparing(Apple::bestBefore));
+
+        // ForEach exercise:
+        System.out.println("");
+        System.out.println("After sorting:====================================================");
+        someApples.forEach(Apple -> System.out.println(Apple.toString()));
+        System.out.println("");
+
+        // ArrayOfComparators:
+        Comparator<Apple>[] comparators = new Comparator[3];
+
 
 
         System.out.println("Streams Exercises Output:");
