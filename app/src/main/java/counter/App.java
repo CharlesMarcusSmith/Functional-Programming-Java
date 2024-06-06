@@ -51,10 +51,10 @@ public class App {
         Collections.sort(someApples, Comparator.comparing(Apple::bestBefore));
 
         // ForEach exercise:
-        System.out.println("");
+        System.out.println();
         System.out.println("After sorting:====================================================");
         someApples.forEach(Apple -> System.out.println(Apple.toString()));
-        System.out.println("");
+        System.out.println();
 
         // ArrayOfComparators:
         Comparator<Apple>[] comparators = new Comparator[3];
@@ -63,6 +63,54 @@ public class App {
 
         System.out.println("Streams Exercises Output:");
         // Add your stream exercises here
+
+        System.out.println("Print all:");
+        someApples.stream()
+                .forEach(apple -> System.out.println(apple));
+        System.out.println();
+
+        // Lambda improved upon in this version:
+        System.out.println("Skip first 3:");
+        someApples.stream()
+                .skip(3)
+                .forEach(System.out::println);
+        System.out.println();
+
+        System.out.println("Find first item:");
+        someApples.stream()
+                        .limit(1)
+                        .forEach(System.out::println);
+        System.out.println();
+
+        System.out.println("Filter apples picked before March 2023:");
+        someApples.stream()
+                .filter(apple -> apple.datePicked().isBefore(
+                LocalDate. of(2023, 3, 1)))
+                .forEach(System.out::println);
+        System.out.println();
+
+        System.out.println("Best before May:");
+        someApples.stream()
+                .filter(apple -> apple.bestBefore().isBefore(
+                LocalDate. of(2023, 5, 1)))
+                .forEach(apple -> System.out.println(
+                        "There is a " + apple.colour() + "apple that is best before " + apple.bestBefore()
+                ));
+        System.out.println();
+
+        System.out.println("All Red apples:");
+        someApples.stream()
+                        .filter(apple -> apple.colour().equals(Colour.RED))
+                        .forEach(System.out::println);
+        System.out.println();
+
+        //Task 7 is the same result as task 2 but:
+        someApples.stream()
+                .sorted(new bestBeforeComparator())
+                .skip(3)
+                .forEach(System.out::println);
+        System.out.println();
+
 
         System.out.println("Predicate Exercises Output:");
         Counter<Apple> appleCounter = new Counter<>();
